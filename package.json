@@ -1,0 +1,20 @@
+{
+  "name": "myapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "packager": "electron-packager ./ dist --platform=win32 --electron-version=9.0.5  --arch=x64  --overwrite",
+    "dist": "electron-builder --win --x64"
+  },
+  "build": {"appId": "com.tpcanfu.wiki.tpc", "copyright":"topsec", "productName":"baseline","mac": {"target": ["dmg","zip"]},"win": {"target": ["nsis","zip"] }},
+  "author": "",
+  "license": "ISC",
+  "dependencies": {   
+    "node-xlsx": "^0.15.0"
+  },
+  "devDependencies": {
+    "electron": "7.0.0"
+  }
+}

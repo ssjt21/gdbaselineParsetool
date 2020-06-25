@@ -1,0 +1,27 @@
+
+#file-drag-test{
+    width: 100%;
+    height: 200px;
+    background-color: #144858;
+    text-align:center;
+    line-height: 200px;
+    border-radius: 0.3em;
+    color: aliceblue;
+    font-size: 17px;
+    letter-spacing: 0.2em;
+    font-family: 'Courier New', Courier, monospace;
+    overflow:auto;
+}
+
+#show-info{
+    width: 100%;
+    height: 380px;
+    background-color: black;
+    color: cornsilk;
+    font-size: 12px;
+    font-family: 'Courier New', Courier, monospace;
+    margin-top: 6px;
+    border-radius: 0.3em;
+    overflow:auto;
+
+}
