@@ -1,0 +1,8 @@
+version: 1.0.0
+files:
+  - url: baseline-Setup-1.0.0.exe
+    sha512: 8KRZbqKU0semHZfP6vRqbSx7nqe2KdqtDBWCO2y321fxwY4oqiiSLlBcF12rxL8dCFUYbvlS8Z1JobzhaFJLpw==
+    size: 47004576
+path: baseline-Setup-1.0.0.exe
+sha512: 8KRZbqKU0semHZfP6vRqbSx7nqe2KdqtDBWCO2y321fxwY4oqiiSLlBcF12rxL8dCFUYbvlS8Z1JobzhaFJLpw==
+releaseDate: '2020-06-28T04:40:06.453Z'

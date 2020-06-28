@@ -52,11 +52,12 @@ dragWrapper.addEventListener('drop',(e)=>{
         showinfo.innerHTML = showinfo.innerHTML + "<br>[Info] 发现sheet："+ data.name
 
         showinfo.innerHTML = showinfo.innerHTML + "<br>[Info] 解析数据条数："+ data.data.length+ " 条"
-        console.log(data)
+        // console.log(data)
         if(data.data[0].length<6 && data.data[0][5]!=="检查结果"){
             showinfo.innerHTML = showinfo.innerHTML + "<br>[Error] Excel 格式与目标格式不符！"
             return
         }
+        showinfo.innerHTML = showinfo.innerHTML +"<br> [Info] 数据正在读取中...."
         //数据分类并分析
         var dataformat = dataParse(data.data)
         //导出数据
@@ -93,7 +94,7 @@ function getDeviceName(v){
     return ""
 }
 function dataParse(data){
-
+    showinfo.innerHTML = showinfo.innerHTML +"<br> [Info] 数据正在解析...."
     var dataformat = {}
     // console.log(dataformat.hasOwnProperty('ad')) 判断key是否存在
     const arrLength = data.length
@@ -152,6 +153,7 @@ Date.prototype.format = function (fmt) {
 // dict 转 xlsobj
 
 function changeXlsxObj(dataformat){
+    showinfo.innerHTML = showinfo.innerHTML +"<br> [Info] 数据正在导出中...."
     var objlst=[]
     var sheetIndex=0
    
@@ -205,20 +207,20 @@ function changeXlsxObj(dataformat){
        db_total=db_md_os['dbs'][1]+db_md_os['dbs'][2]
        os_tatal=db_md_os['oss'][1]+db_md_os['oss'][2]
        if(md_total===0){
-        obj[i+2]=['中间件合规率',0,0,0,"-%"]
+        obj[i+1]=['中间件合规率',0,0,0,"-%"]
        }else{
-        obj[i+2]=['中间件合规率',db_md_os['mds'][1],db_md_os['mds'][2],md_total,(db_md_os['mds'][1]*100/(md_total*1.0)).toFixed(2)+"%"]
+        obj[i+1]=['中间件合规率',db_md_os['mds'][1],db_md_os['mds'][2],md_total,(db_md_os['mds'][1]*100/(md_total*1.0)).toFixed(2)+"%"]
        }
        if(db_total===0){
-        obj[i+3]=['数据库合规率',0,0,0,"-%"]
+        obj[i+2]=['数据库合规率',0,0,0,"-%"]
        }else{
         
-        obj[i+3]=['数据库合规率',db_md_os['dbs'][1],db_md_os['dbs'][2],db_total,(db_md_os['dbs'][1]*100/(db_total*1.0)).toFixed(2)+"%"]
+        obj[i+2]=['数据库合规率',db_md_os['dbs'][1],db_md_os['dbs'][2],db_total,(db_md_os['dbs'][1]*100/(db_total*1.0)).toFixed(2)+"%"]
        }
        if(0===os_tatal){
-        obj[i+4]=['主机合规率',0,0,0,"-%"]
+        obj[i+3]=['主机合规率',0,0,0,"-%"]
        }else{
-        obj[i+4]=['主机合规率',db_md_os['os'][1],db_md_os['os'][2],os_tatal,(db_md_os['oss'][1]*100/(os_tatal*1.0)).toFixed(2)+"%"]
+        obj[i+3]=['主机合规率',db_md_os['oss'][1],db_md_os['oss'][2],os_tatal,(db_md_os['oss'][1]*100/(os_tatal*1.0)).toFixed(2)+"%"]
        }
         
        
@@ -251,7 +253,7 @@ function changeXlsxObj(dataformat){
         for(var t in deviceType){
             var sign=false
             // console.log(t)
-            var dataarr = objlst[i]['data'].slice(2,rows-3)
+            var dataarr = objlst[i]['data'].slice(2,rows-2)
             for(var item in  dataarr){//获取每一行数据
                 console.log(dataarr[item])
                 if(dataarr[item].includes(t)){
@@ -264,7 +266,7 @@ function changeXlsxObj(dataformat){
                 tmpdata.push([t,0,0,0,'0.00%','0.00%'])
             }
         }
-        tmpdata.push(objlst[i]['data'][rows-4])
+        // tmpdata.push(objlst[i]['data'][rows-4])
         tmpdata.push(objlst[i]['data'][rows-3])
         tmpdata.push(objlst[i]['data'][rows-2])
         tmpdata.push(objlst[i]['data'][rows-1])

@@ -1,0 +1,15 @@
+directories:
+  output: dist
+  buildResources: build
+appId: com.tpcanfu.wiki.tpc
+copyright: topsec
+productName: baseline
+mac:
+  target:
+    - dmg
+    - zip
+win:
+  target:
+    - nsis
+    - zip
+electronVersion: 7.0.0
