@@ -4,20 +4,35 @@ const xlsx = require('node-xlsx')
 const dragWrapper = document.querySelector("#file-drag-test")
 var  showinfo = document.querySelector("#show-info")
 
+// const deviceType = {
+//     'Apache': /^APACHE_/,
+//     'Tomcat': /^TOMCAT_/,
+//     'Weblogic': /^WEBLOGIC_/,
+//     'Nginx': /^NGINX_/,
+//     'Tuxedo': /^TUXEDO_/,
+//     'MQ': /^MQ_/,
+//     'MSSQL': /^MSSQL_/,
+//     'MySQL': /^MYSQL_/,
+//     'Oracle': /^ORACLE_/,
+//     'Redis': /^REDIS_/,
+//     'Suse': /^OS_LINUX_/,
+//     "Windows": /^OS_WINDOWS_/
+// }
 const deviceType = {
-    'Apache': /^APACHE_/,
-    'Tomcat': /^TOMCAT_/,
-    'Weblogic': /^WEBLOGIC_/,
-    'Nginx': /^NGINX_/,
-    'Tuxedo': /^TUXEDO_/,
-    'MQ': /^MQ_/,
-    'MSSQL': /^MSSQL_/,
-    'MySQL': /^MYSQL_/,
+    "Windows": /^OS_WINDOWS_/,
+    'Suse': /^OS_LINUX_/,
     'Oracle': /^ORACLE_/,
     'Redis': /^REDIS_/,
-    'Suse': /^OS_LINUX_/,
-    "Windows": /^OS_WINDOWS_/
+    'MySQL': /^MYSQL_/,
+    'MSSQL': /^MSSQL_/,
+    'Apache': /^APACHE_/,
+    'Tuxedo': /^TUXEDO_/,
+    'Weblogic': /^WEBLOGIC_/,
+    'IBM-MQ': /^MQ_/,
+    'Nginx': /^NGINX_/,
+    'Tomcat': /^TOMCAT_/ 
 }
+
 dragWrapper.addEventListener('drop',(e)=>{
     e.preventDefault()
     const files = e.dataTransfer.files
@@ -38,7 +53,7 @@ dragWrapper.addEventListener('drop',(e)=>{
 
         showinfo.innerHTML = showinfo.innerHTML + "<br>[Info] 解析数据条数："+ data.data.length+ " 条"
         console.log(data)
-        if(data.data[0].length<8 && data.data[0][5]!=="检查结果"){
+        if(data.data[0].length<6 && data.data[0][5]!=="检查结果"){
             showinfo.innerHTML = showinfo.innerHTML + "<br>[Error] Excel 格式与目标格式不符！"
             return
         }
@@ -181,29 +196,29 @@ function changeXlsxObj(dataformat){
            
         }
         var total= successTotal+failedTotal
-        if(total===0){
-            obj[i+1]=['汇总',successTotal,failedTotal,total,"-%",'-%']
-        }else{
-            obj[i+1]=['汇总',successTotal,failedTotal,total,(successTotal*100/(total*1.0)).toFixed(2)+"%",(failedTotal*100/(total*1.0)).toFixed(2)+'%']
-        }
+        // if(total===0){
+        //     obj[i+1]=['汇总',successTotal,failedTotal,total,"-%",'-%']
+        // }else{
+        //     obj[i+1]=['汇总',successTotal,failedTotal,total,(successTotal*100/(total*1.0)).toFixed(2)+"%",(failedTotal*100/(total*1.0)).toFixed(2)+'%']
+        // }
        md_total=db_md_os['mds'][1]+db_md_os['mds'][2]
        db_total=db_md_os['dbs'][1]+db_md_os['dbs'][2]
        os_tatal=db_md_os['oss'][1]+db_md_os['oss'][2]
        if(md_total===0){
-        obj[i+2]=['中间件合规率',"-%"]
+        obj[i+2]=['中间件合规率',0,0,0,"-%"]
        }else{
-        obj[i+2]=['中间件合规率',(db_md_os['mds'][1]*100/(md_total*1.0)).toFixed(2)+"%"]
+        obj[i+2]=['中间件合规率',db_md_os['mds'][1],db_md_os['mds'][2],md_total,(db_md_os['mds'][1]*100/(md_total*1.0)).toFixed(2)+"%"]
        }
        if(db_total===0){
-        obj[i+3]=['数据库合规率',"-%"]
+        obj[i+3]=['数据库合规率',0,0,0,"-%"]
        }else{
         
-        obj[i+3]=['数据库合规率',(db_md_os['dbs'][1]*100/(db_total*1.0)).toFixed(2)+"%"]
+        obj[i+3]=['数据库合规率',db_md_os['dbs'][1],db_md_os['dbs'][2],db_total,(db_md_os['dbs'][1]*100/(db_total*1.0)).toFixed(2)+"%"]
        }
        if(0===os_tatal){
-        obj[i+4]=['主机合规率',"-%"]
+        obj[i+4]=['主机合规率',0,0,0,"-%"]
        }else{
-        obj[i+4]=['主机合规率',(db_md_os['oss'][1]*100/(os_tatal*1.0)).toFixed(2)+"%"]
+        obj[i+4]=['主机合规率',db_md_os['os'][1],db_md_os['os'][2],os_tatal,(db_md_os['oss'][1]*100/(os_tatal*1.0)).toFixed(2)+"%"]
        }
         
        
